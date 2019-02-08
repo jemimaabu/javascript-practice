@@ -31,3 +31,48 @@ function pangram(str) {
 	const uniqueLetters = [... new Set(stringArray)];
 	return uniqueLetters.length === 26 ? "Pangram" : "Not pangram"
 }
+
+/* Returns cardinality of palindromes in array of strings input */
+function threatDetector(textMessages) {
+
+    function isPalindrome(s) {
+        s = s.trim().split("")
+        if (s.join("") === s.reverse().join("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function palindromeArray(str) {
+        var substrings = [];
+
+        for (var i = 0; i < str.length; i++) {
+            for (var j = 0; j < str.length-i; j++) {
+                let subStr = str.substring(j, j+i+3);
+                if (isPalindrome(subStr)) {
+                    substrings.push(subStr);
+                }
+            }
+        }
+        var subCount = substrings.filter(x => x.length >= 3).map(x => x.length);
+        var count = subCount.reduce((a, b) => a + b, 0)
+        if (count >= 1 && count <= 10) {
+            return "Possible";
+        }
+        if (count >= 11 && count <= 40) {
+            return "Probable";
+        }
+        if (count >= 41 && count <= 150) {
+            return "Escalate";
+        }
+    }
+
+    function printArray(str) {
+        var symbols = str.split("").slice(str.length - 3, str.length).join("");
+        var palindromicText = str.toLowerCase().replace(/[\W_]/g, '');
+        return `${symbols} ${palindromeArray(palindromicText)}`
+    }
+
+    console.log(textMessages.map(textMessage => printArray(textMessage)).join("\n"));
+}
