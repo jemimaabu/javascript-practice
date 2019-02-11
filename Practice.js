@@ -76,3 +76,25 @@ function threatDetector(textMessages) {
 
     console.log(textMessages.map(textMessage => printArray(textMessage)).join("\n"));
 }
+
+/**  Reverse string but maintain position of special characters*/
+function reverseChar(str) {
+    var specIndex = [];
+    var specChar = [];
+    for (var i = 0; i<str.length; i++) {
+        if (/[^a-zA-Z0-9]/g.test(str[i]) === true ) {
+            specIndex.push(i);
+            specChar.push(str[i]);
+        }
+    }
+    str = str.replace(/[^a-zA-Z0-9]/g,"").split("").reverse();
+    var newStr = [];
+    for (var i = 0; i<str.length; i++) {
+        if (specIndex.includes(i)) {
+            var index = specIndex.indexOf(i);
+            newStr.push(specChar[index]);
+        }
+        newStr.push(str[i])
+       }
+    console.log(newStr.join(""))
+}
