@@ -88,13 +88,23 @@ function reverseChar(str) {
         }
     }
     str = str.replace(/[^a-zA-Z0-9]/g,"").split("").reverse();
-    var newStr = [];
-    for (var i = 0; i<str.length; i++) {
-        if (specIndex.includes(i)) {
-            var index = specIndex.indexOf(i);
-            newStr.push(specChar[index]);
-        }
-        newStr.push(str[i])
-       }
-    console.log(newStr.join(""))
+    for (let i = 0; i<specChar.length; i++) {
+        str.splice(specIndex[i], 0, specChar[i])
+    }
+    console.log(str.join(""))
+}
+
+/** Another method of reversing string by Devin McIntyre */
+const reverser = str => {
+    //Create a map of special and non-special characters mapped to their index
+    const mapped = str
+        .split('')
+        .reduce((acc, character, index) => {
+            character.match(/^[0-9a-zA-Z]+$/) ? acc.letters.push(character) : acc.specials.push({character, index})
+            return acc
+        }, {letters: [], specials: []})
+    
+    const reversedArr = mapped.letters.reverse() //reverse the letters array
+    mapped.specials.forEach(special => reversedArr.splice(special.index, 0, special.character)) //add in the special characters at their index
+    return reversedArr.join("") //Return the string
 }
