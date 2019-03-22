@@ -108,3 +108,127 @@ const reverser = str => {
     mapped.specials.forEach(special => reversedArr.splice(special.index, 0, special.character)) //add in the special characters at their index
     return reversedArr.join("") //Return the string
 }
+
+//Function to return array of object of character count
+function objCount(arr) {
+	const uniqueArray = [... new Set(arr)]
+	const mapped = uniqueArray
+        .reduce((acc, character, count) => {
+            count = numCount(arr,character);
+			acc.push({character, count});
+            return acc
+        }, [])
+	return mapped
+}
+
+// Complete the MinSliceWeight function below.
+function MinSliceWeight(Matrix) {
+    // Get number of rows in Matrix i.e. Matrix[i]
+    var rows = Matrix.length;
+    // Get number of columns in Matrix i.e. Matrix[i][j]
+    var cols = Matrix.length > 0 ?  Matrix[0].length : 0;
+    // If rows or columns are 0, return 0
+    if (rows == 0 || cols == 0) {
+        return 0
+    }
+
+    //Create slice sum array same length as columns
+    var sliceSum = Array(cols).fill(0);
+
+    //Fill slice sum array with values in last row
+    for (var i = 0; i < cols; i++) {
+        sliceSum[i] = !isNaN(Matrix[rows - 1][i]) ? Matrix[rows - 1][i] : 0
+    }
+
+    //Start iterating backwards from second-to-last row
+    for (var i = rows - 2; i >= 0; i--) {
+        //Iterate through columns backwards starting from last colum
+        for (var j = cols - 1; j >= 0; j--) {
+            //Detect non integer input
+            if (isNaN(Matrix[i][j])) {
+                Matrix[i][j] = 0
+            }
+            //If j is at last position, get minimum value of left-bottom element or immediate-bottom element and add to j
+            if (j == cols - 1) {
+                sliceSum[j] = Math.min(sliceSum[j - 1], sliceSum[j]) + Matrix[i][j];
+            }
+            //If j is at first position, get minimum value of right-bottom element or immediate-bottom element and add to j
+            else if (j == 0) {
+                sliceSum[j] = Math.min(sliceSum[j], sliceSum[j + 1]) + Matrix[i][j];
+            }
+            // Else if j is in the middle, get the minimum value of the the left, right or bottom element and add to j
+            else {
+                sliceSum[j] = Math.min(sliceSum[j - 1], sliceSum[j], sliceSum[j + 1]) + Matrix[i][j];
+            }
+        }
+    }
+
+    //Sort sliceSum array in ascending order and return first value
+    return sliceSum.sort((a,b) => a -b)[0];
+}
+
+// Complete the winner function below.
+function winner(erica, bob) {
+    erica = erica.split('');
+    bob = bob.split('');
+
+    function score(arr) {
+        var score = 0;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == "S") {
+                score += 0;
+            }
+            if (arr[i] == "E") {
+                score += 1;
+            }
+            if (arr[i] == "M") {
+                score += 3;
+            }
+            if (arr[i] == "H") {
+                score += 5;
+            }
+        }
+        return score
+    }
+
+    function levelCount(arr, l) {
+        var count = 0;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == l) {
+                count++;
+            }
+        }
+        return count
+    }
+
+    var ericaScore = score(erica);
+    var bobScore = score(bob);
+    var ericaHScore = levelCount(erica, "H");
+    var bobHScore = levelCount(bob, "H");
+    var ericaMScore = levelCount(erica, "M");
+    var bobMScore = levelCount(bob, "M");
+    var ericaEScore = levelCount(erica, "E");
+    var bobEScore = levelCount(bob, "E");
+
+    if (ericaScore > bobScore) {
+        return "Erica"
+    } else if (bobScore > ericaScore ) {
+        return "Bob"
+    } else if (bobScore == ericaScore) {
+        if (ericaHScore > bobHScore) {
+            return "Erica"
+        } else if (ericaHScore < bobHScore) {
+            return "Bob"
+        } else if (ericaMScore > bobMScore) {
+            return "Erica"
+        } else if (ericaMScore < bobMScore) {
+            return "Bob"
+        } else if (ericaEScore > bobEScore) {
+            return "Erica"
+        } else if (ericaEScore < bobEScore) {
+            return "Bob"
+        } else {
+            return "Tie"
+        }
+    }
+}
