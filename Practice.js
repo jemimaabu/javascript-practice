@@ -232,3 +232,26 @@ function winner(erica, bob) {
         }
     }
 }
+
+function solution(A, K, L) {
+    if(K+L > A.length) {
+        return -1
+    }
+    
+    function maximumSum(startIndex, num) {
+        var sum = 0;
+        for(var i = startIndex; i < num; i++) {
+            sum += A[i];
+        }
+        var newSum = sum;
+        for(var i = num; i < A.length; i++) {
+            newSum += A[i] - A[i-num];
+            sum = Math.max(sum, newSum);
+        }
+        return sum
+    }
+    
+    var maxK = maximumSum(A, K);
+    var maxL = maximumSum(A, L);
+    return maxK+maxL
+}
