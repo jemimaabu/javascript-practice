@@ -255,3 +255,17 @@ function solution(A, K, L) {
     var maxL = maximumSum(A, L);
     return maxK+maxL
 }
+
+// Return array of prime numbers in a number
+function primeFactorArray(number) {
+    var primes = [];
+
+    //initialize divisor as lowest prime number, 2
+    for (var divisor = 2; number > 1; divisor ++) {
+        for(; number%divisor === 0; number/=divisor) {
+            primes.push(divisor);
+        }
+    }
+
+    return primes
+}
