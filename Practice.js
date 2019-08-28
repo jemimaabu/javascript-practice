@@ -301,3 +301,80 @@ function translatePigLatin(str) {
     return str;
   }
 }
+
+/*
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
+// assume you have a function isDigit(char) which returns true if char is a digit and false otherwise
+// also assume you have a function isLetter(char) which returns true if char is a letter and false otherwise
+
+function specChar(str) {
+    var strArr = str.split("");
+    if (str.match(/[^a-zA-Z0-9]/g)) {
+        var validChar = [];
+        for (var i = 0; i<strArr.length; i++) {
+            if (isDigit(strArr[i]) || isChar(strArr[i])) {
+                validChar.push(strArr[i])
+            } 
+        }
+        return validChar;
+    }
+    return strArr;
+}
+
+function isPalindrome(str) {
+    if (str.length = 0) {
+        return true
+    }
+    var strArr = specChar(str);
+    var revArr = [...strArr].reverse();
+    return strArr.join("") === revArr.join("");
+}
+// ----------------------------------------------------------------------
+// Given an array of strings, group anagrams together.
+
+Example:
+
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+sortedArray: ["aet", "aet", "ant", "aet", "ant", "abt"];
+nestArr: ["aet",]
+Output:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+
+
+function sortItem(arr) {
+    return arr.map(x => x.split("").sort().join(""))
+}
+function elemCount(arr, elem) {
+    var count = 0;
+    for (var i = 0; i<arr.length; i++) {
+        if (arr[i]==elem) { count++} 
+    }
+    return count;
+}
+// var t = ["nat","tan"] // sortItem(t) --> ["ant", "ant"]? [
+function anagram(arr) {
+    var sortedArr = sortItem(arr);
+    for (var i = 0; i<arr.length; i++) {
+        var nestArr = [];
+        while(elemCount(sortedArr, sortedArr[i]) > 0) {
+            nestArr.push(arr[i]);
+        }
+    }
+}
+
+var group = {
+    aet: ["ate","eat","tea"],
+    
+}
+
+var group = {"aet":["ate","eat","tea"]};
+
+
+
+*/
