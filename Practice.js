@@ -302,6 +302,32 @@ function translatePigLatin(str) {
   }
 }
 
+
+//compress and decompress string to octet value i.e "aabbcc" should compress to "0a20b20c2"
+const compress = (str) => {
+    var arr = str.split('');
+    var octetStr = '';
+    var count = 1;
+    for (var i = 0; i<arr.length; i++) {
+        if (arr[i] == arr[i+1]) count++;
+        else if (arr[i] !== arr[i+1]) {
+            octetStr += `0${arr[i]}${count}`
+            count=1
+        };
+    }
+    return octetStr;
+}
+
+const decompress = (str) => {
+    var arr = str.split('0');
+    return arr.map(x => {
+    if (x.length > 0) {
+        var char = x.split('');
+        var val = char[0].repeat(+char[1]);
+        return val;
+    }}).join('')
+}
+
 /*
 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
 
