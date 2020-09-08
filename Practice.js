@@ -328,12 +328,12 @@ const decompress = (str) => {
     }}).join('')
 }
 
-/*
-Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+/*Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
 
 Note: For the purpose of this problem, we define empty string as valid palindrome.
 // assume you have a function isDigit(char) which returns true if char is a digit and false otherwise
-// also assume you have a function isLetter(char) which returns true if char is a letter and false otherwise
+// also assume you have a function isLetter(char) which returns true if char is a letter and false otherwise */
 
 function specChar(str) {
     var strArr = str.split("");
@@ -400,7 +400,3 @@ var group = {
 }
 
 var group = {"aet":["ate","eat","tea"]};
-
-
-
-*/
