@@ -421,3 +421,24 @@ function getSockPairs(arr) {
 
     return pairs
 }
+
+/* Given an array and a hashing function modulus, compute the collision in the array where a collision happens if two elements have the same modulo value*/
+function getCollisions(arr, mod) {
+    const sortedArray = [...arr].map(val => val % mod).sort()
+    let dict = {}
+    sortedArray.forEach(char => {
+        if (dict[char] >= 0) {
+            dict[char] += 1
+        } else {
+            dict[char] = 0
+        }
+    })    
+        
+    let collisions = 0
+    
+    for (const key in dict) {
+      collisions += dict[key]
+    }
+
+    return collisions
+}
