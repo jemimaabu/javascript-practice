@@ -400,3 +400,24 @@ var group = {
 }
 
 var group = {"aet":["ate","eat","tea"]};
+
+
+/* Given an array that represents sock colors e.g. [3,3,2,1,1,3,5,1,4,2], write a function to calculate how many pairs of the same color exist */
+function getSockPairs(arr) {
+    let dict = {}
+    arr.forEach(char => {
+        if (dict[char]) {
+            dict[char] += 1
+        } else {
+            dict[char] = 1
+        }
+    })
+
+    let pairs = 0
+    
+    for (const key in dict) {
+      pairs += Math.floor(dict[key] / 2)
+    }
+
+    return pairs
+}
